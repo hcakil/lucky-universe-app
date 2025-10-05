@@ -41,6 +41,33 @@ fi
 
 echo "✅ Found pubspec.yaml in: $(pwd)"
 
+# First, run flutter pub get to generate required files
+echo "📦 Running flutter pub get to generate required files..."
+if command -v flutter &> /dev/null; then
+    flutter pub get
+    echo "✅ Flutter pub get completed"
+else
+    echo "⚠️ Flutter not available, trying to create Generated.xcconfig manually..."
+    
+    # Create the Generated.xcconfig file manually
+    mkdir -p ios/Flutter
+    cat > ios/Flutter/Generated.xcconfig << EOF
+// This is a generated file; do not edit or check into version control.
+FLUTTER_ROOT=/usr/local/bin/flutter
+FLUTTER_APPLICATION_PATH=/Volumes/workspace/repository
+FLUTTER_TARGET=lib/main.dart
+FLUTTER_BUILD_DIR=build
+FLUTTER_BUILD_NAME=1.1.1
+FLUTTER_BUILD_NUMBER=6
+EXCLUDED_ARCHS[sdk=iphonesimulator*]=i386
+DART_OBFUSCATION=false
+TRACK_WIDGET_CREATION=true
+TREE_SHAKE_ICONS=false
+PACKAGE_CONFIG=.dart_tool/package_config.json
+EOF
+    echo "✅ Created Generated.xcconfig manually"
+fi
+
 echo "📦 Setting up iOS dependencies..."
 cd ios
 
