@@ -1,4 +1,5 @@
-# Simplified Podfile for Xcode Cloud
+# This file is intentionally simplified for local development
+# Xcode Cloud will handle Flutter setup automatically
 platform :ios, '15.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
@@ -14,8 +15,7 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-  # Add basic dependencies that Flutter apps typically need
-  pod 'Flutter', :path => 'Flutter'
+  # Flutter dependencies will be added by Xcode Cloud
   
   target 'RunnerTests' do
     inherit! :search_paths
