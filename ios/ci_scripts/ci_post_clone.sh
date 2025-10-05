@@ -5,23 +5,31 @@
 
 set -e
 
-echo "🔧 Setting up Flutter environment..."
-
-# Install Flutter if not available
-if ! command -v flutter &> /dev/null; then
-    echo "📥 Installing Flutter..."
-    # Xcode Cloud has Flutter pre-installed, but let's ensure it's available
-    export PATH="$PATH:/usr/local/bin"
-fi
+echo "🔧 Setting up project environment..."
 
 # Navigate to project root
 cd "$CI_WORKSPACE"
 
-echo "📦 Getting Flutter dependencies..."
-flutter pub get
+echo "📁 Current directory: $(pwd)"
+echo "📁 Contents:"
+ls -la
 
-echo "🔧 Setting up iOS dependencies..."
+# Check if we're in the right directory
+if [ ! -f "pubspec.yaml" ]; then
+    echo "❌ pubspec.yaml not found. Are we in the right directory?"
+    exit 1
+fi
+
+echo "📦 Setting up iOS dependencies..."
 cd ios
+
+# Check if Podfile exists
+if [ ! -f "Podfile" ]; then
+    echo "❌ Podfile not found in ios directory"
+    exit 1
+fi
+
+echo "🔧 Running pod install..."
 pod install --repo-update
 
-echo "✅ Flutter environment setup complete!"
+echo "✅ iOS dependencies setup complete!"
