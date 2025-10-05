@@ -18,15 +18,24 @@ ls -la
 if [ ! -f "pubspec.yaml" ]; then
     echo "❌ pubspec.yaml not found. Trying alternative paths..."
     
-    # Try going up one level
+    # Try going up one level (from ios to project root)
     cd ..
     echo "📁 Trying parent directory: $(pwd)"
     ls -la
     
     if [ ! -f "pubspec.yaml" ]; then
-        echo "❌ pubspec.yaml still not found. Available files:"
-        find . -name "pubspec.yaml" -type f 2>/dev/null || echo "No pubspec.yaml found"
-        exit 1
+        echo "❌ pubspec.yaml still not found. Trying one more level up..."
+        
+        # Try going up one more level
+        cd ..
+        echo "📁 Trying grandparent directory: $(pwd)"
+        ls -la
+        
+        if [ ! -f "pubspec.yaml" ]; then
+            echo "❌ pubspec.yaml still not found. Available files:"
+            find . -name "pubspec.yaml" -type f 2>/dev/null || echo "No pubspec.yaml found"
+            exit 1
+        fi
     fi
 fi
 
