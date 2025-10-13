@@ -1,9 +1,10 @@
 import 'dart:math';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:intl/intl.dart';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:confetti/confetti.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -135,8 +136,7 @@ class LuckyNumbersScreen extends StatefulWidget {
   State<LuckyNumbersScreen> createState() => _LuckyNumbersScreenState();
 }
 
-class _LuckyNumbersScreenState extends State<LuckyNumbersScreen>
-    with TickerProviderStateMixin {
+class _LuckyNumbersScreenState extends State<LuckyNumbersScreen> with TickerProviderStateMixin {
   int _luckyNumber = 0;
   int _previousNumber = 0;
   late AnimationController _animationController;
@@ -168,11 +168,11 @@ class _LuckyNumbersScreenState extends State<LuckyNumbersScreen>
       _previousNumber = _luckyNumber;
       _luckyNumber = Random().nextInt(100) + 1;
     });
-    
+
     _animationController.reset();
     _animationController.forward();
     _confettiController.play();
-    
+
     // Save to history
     await _saveToHistory('Lucky Number: $_luckyNumber');
   }
@@ -189,7 +189,7 @@ class _LuckyNumbersScreenState extends State<LuckyNumbersScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lucky Numbers'),
@@ -235,8 +235,8 @@ class _LuckyNumbersScreenState extends State<LuckyNumbersScreen>
             ),
           ),
           Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AnimatedBuilder(
                   animation: _scaleAnimation,
@@ -292,7 +292,7 @@ class _LuckyNumbersScreenState extends State<LuckyNumbersScreen>
                 ),
                 const SizedBox(height: 20),
                 if (_previousNumber != 0)
-            Text(
+                  Text(
                     'Previous: $_previousNumber',
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: Colors.grey.shade600,
@@ -349,8 +349,7 @@ class LuckyColorsScreen extends StatefulWidget {
   State<LuckyColorsScreen> createState() => _LuckyColorsScreenState();
 }
 
-class _LuckyColorsScreenState extends State<LuckyColorsScreen>
-    with TickerProviderStateMixin {
+class _LuckyColorsScreenState extends State<LuckyColorsScreen> with TickerProviderStateMixin {
   Color _luckyColor = Colors.purple;
   Color _previousColor = Colors.purple;
   late AnimationController _animationController;
@@ -401,11 +400,11 @@ class _LuckyColorsScreenState extends State<LuckyColorsScreen>
       _previousColor = _luckyColor;
       _luckyColor = _colorPalette[Random().nextInt(_colorPalette.length)];
     });
-    
+
     _animationController.reset();
     _animationController.forward();
     _confettiController.play();
-    
+
     // Save to history
     await _saveToHistory('Lucky Color: ${_getColorName(_luckyColor)}');
   }
@@ -442,7 +441,7 @@ class _LuckyColorsScreenState extends State<LuckyColorsScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lucky Colors'),
@@ -536,7 +535,7 @@ class _LuckyColorsScreenState extends State<LuckyColorsScreen>
                 ),
                 const SizedBox(height: 20),
                 if (_previousColor != _luckyColor)
-            Text(
+                  Text(
                     'Previous: ${_getColorName(_previousColor)}',
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: Colors.grey.shade600,
@@ -599,8 +598,18 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
   late ConfettiController _confettiController;
 
   final List<String> _zodiacSigns = [
-    'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
-    'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
+    'Aries',
+    'Taurus',
+    'Gemini',
+    'Cancer',
+    'Leo',
+    'Virgo',
+    'Libra',
+    'Scorpio',
+    'Sagittarius',
+    'Capricorn',
+    'Aquarius',
+    'Pisces'
   ];
 
   final Map<String, List<String>> _horoscopes = {
@@ -685,9 +694,9 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
       final horoscopes = _horoscopes[_currentSign]!;
       _currentHoroscope = horoscopes[Random().nextInt(horoscopes.length)];
     });
-    
+
     _confettiController.play();
-    
+
     // Save to history
     await _saveToHistory('Horoscope for $_currentSign: $_currentHoroscope');
   }
@@ -704,7 +713,7 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Daily Horoscope'),
@@ -782,9 +791,9 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
                             color: Colors.purple,
                             fontWeight: FontWeight.bold,
                           ),
-            ),
-            const SizedBox(height: 20),
-            Text(
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
                           _currentHoroscope,
                           style: theme.textTheme.bodyLarge?.copyWith(
                             color: Colors.grey.shade700,
@@ -853,46 +862,22 @@ class _LuckyQuotesScreenState extends State<LuckyQuotesScreen> {
   late ConfettiController _confettiController;
 
   final List<Map<String, String>> _quotes = [
-    {
-      'quote': 'The only way to do great work is to love what you do.',
-      'author': 'Steve Jobs'
-    },
+    {'quote': 'The only way to do great work is to love what you do.', 'author': 'Steve Jobs'},
     {
       'quote': 'Success is not final, failure is not fatal: it is the courage to continue that counts.',
       'author': 'Winston Churchill'
     },
-    {
-      'quote': 'The future belongs to those who believe in the beauty of their dreams.',
-      'author': 'Eleanor Roosevelt'
-    },
-    {
-      'quote': 'It is during our darkest moments that we must focus to see the light.',
-      'author': 'Aristotle'
-    },
-    {
-      'quote': 'The way to get started is to quit talking and begin doing.',
-      'author': 'Walt Disney'
-    },
+    {'quote': 'The future belongs to those who believe in the beauty of their dreams.', 'author': 'Eleanor Roosevelt'},
+    {'quote': 'It is during our darkest moments that we must focus to see the light.', 'author': 'Aristotle'},
+    {'quote': 'The way to get started is to quit talking and begin doing.', 'author': 'Walt Disney'},
     {
       'quote': 'Don\'t be pushed around by the fears in your mind. Be led by the dreams in your heart.',
       'author': 'Roy T. Bennett'
     },
-    {
-      'quote': 'Believe you can and you\'re halfway there.',
-      'author': 'Theodore Roosevelt'
-    },
-    {
-      'quote': 'The only impossible journey is the one you never begin.',
-      'author': 'Tony Robbins'
-    },
-    {
-      'quote': 'In the middle of difficulty lies opportunity.',
-      'author': 'Albert Einstein'
-    },
-    {
-      'quote': 'Success is walking from failure to failure with no loss of enthusiasm.',
-      'author': 'Winston Churchill'
-    },
+    {'quote': 'Believe you can and you\'re halfway there.', 'author': 'Theodore Roosevelt'},
+    {'quote': 'The only impossible journey is the one you never begin.', 'author': 'Tony Robbins'},
+    {'quote': 'In the middle of difficulty lies opportunity.', 'author': 'Albert Einstein'},
+    {'quote': 'Success is walking from failure to failure with no loss of enthusiasm.', 'author': 'Winston Churchill'},
   ];
 
   @override
@@ -914,9 +899,9 @@ class _LuckyQuotesScreenState extends State<LuckyQuotesScreen> {
       _currentQuote = randomQuote['quote']!;
       _currentAuthor = randomQuote['author']!;
     });
-    
+
     _confettiController.play();
-    
+
     // Save to history
     await _saveToHistory('Quote: "$_currentQuote" - $_currentAuthor');
   }
@@ -933,7 +918,7 @@ class _LuckyQuotesScreenState extends State<LuckyQuotesScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lucky Quotes'),
@@ -983,7 +968,7 @@ class _LuckyQuotesScreenState extends State<LuckyQuotesScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-            Container(
+                  Container(
                     padding: const EdgeInsets.all(30),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -1103,7 +1088,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('History'),
@@ -1186,7 +1171,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: Colors.purple.shade100,
-                        child: Icon(
+                        child: const Icon(
                           Icons.star,
                           color: Colors.purple,
                         ),
@@ -1248,14 +1233,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
         backgroundColor: theme.colorScheme.inversePrimary,
       ),
       body: Container(
-              decoration: BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
